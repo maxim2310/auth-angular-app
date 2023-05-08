@@ -1,0 +1,6 @@
+@import '../../../../styles';
+
+.error {
+  color: mat-color($warn);
+  padding-bottom: 10px;
+}
