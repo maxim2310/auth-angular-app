@@ -6,13 +6,26 @@
     users
   </button>
   <span class="spacer"></span>
-  <button mat-button routerLink="/auth/login" routerLinkActive="active-link">
-    Login
-    <mat-icon aria-label="Example home icon">login</mat-icon>
-  </button>
-  <button mat-button routerLink="/auth/registration" routerLinkActive="active-link">
-    Registration
-    <mat-icon aria-label="Example home icon">person_add</mat-icon>
-  </button>
+  <ng-container *ngIf="(isLogin$ | async) === false">
+    <button mat-button routerLink="/auth/login" routerLinkActive="active-link">
+      Login
+      <mat-icon aria-label="Example home icon">login</mat-icon>
+    </button>
+    <button mat-button routerLink="/auth/registration" routerLinkActive="active-link">
+      Registration
+      <mat-icon aria-label="Example home icon">person_add</mat-icon>
+    </button>
+  </ng-container>
+  <ng-container  *ngIf="(isLogin$ | async) === true">
+    <button mat-flat-button color="primary" class="profile_button" (click)="openUserProfileModal()">
+      Profile
+      <mat-icon aria-label="Example home icon"> manage_accounts</mat-icon>
+    </button>
+    <button mat-flat-button color="warn" (click)="logout()">
+      Log Out
+      <mat-icon aria-label="Example home icon">logout</mat-icon>
+
+    </button>
+  </ng-container>
 </mat-toolbar>
 <router-outlet></router-outlet>

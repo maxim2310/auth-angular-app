@@ -21,6 +21,7 @@ export class RegistrationComponent {
     private nav: NavigationService
   ) {
     this.loginForm = this.formBuilder.group({
+      name: [''],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });

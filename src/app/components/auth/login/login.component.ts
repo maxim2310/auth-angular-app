@@ -32,7 +32,7 @@ export class LoginComponent {
       .pipe(
         catchError((error) =>
           throwError(() => {
-            this.snackBar.showMessage(error.message, 'close');
+            this.snackBar.showMessage(error.error.message, 'close');
           })
         )
       )

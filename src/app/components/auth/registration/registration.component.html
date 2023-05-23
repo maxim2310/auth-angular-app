@@ -4,6 +4,11 @@
 <mat-card-content>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input type="email" formControlName="name" matInput placeholder="Please enter you name">
+
+    </mat-form-field>
+    <mat-form-field>
       <mat-label>Email</mat-label>
       <input type="email" formControlName="email" matInput placeholder="Ex. pat@example.com">
       <mat-error *ngIf="loginForm.get('email')?.hasError('email') && !loginForm.get('email')?.hasError('required')">

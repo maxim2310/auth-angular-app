@@ -1,12 +1,7 @@
-.wrapper {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.users_wrapper {
+  padding: 20px;
 
-  font-size: 30px;
-  color: #00acdc;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+}
+.table_wrapper {
+  border: 1px solid black;
 }
