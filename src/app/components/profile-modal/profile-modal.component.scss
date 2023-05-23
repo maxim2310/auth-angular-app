@@ -1,0 +1,62 @@
+.main_wrapper {
+  padding: 15px 25px 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    mat-icon {
+      margin-left: 5px;
+    }
+  }
+
+  .close_button {
+    transform: scale(0.7);
+  }
+}
+
+.item_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .button {
+    zoom: 0.7;
+  }
+}
+
+.passwords_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  mat-form-field {
+    width: 50%;
+  }
+}
+
+.profile_form,
+.password_form {
+  padding: 25px 0;
+}
+
+.profile_form {
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.password_form {
+  
+}
+
+.save_button {
+  margin-right: 10px;
+}

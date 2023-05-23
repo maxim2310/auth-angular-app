@@ -1,0 +1,76 @@
+<div class="main_wrapper">
+  <div class="header">
+    <h1>Profile
+      <mat-icon>manage_accounts</mat-icon>
+    </h1>
+    <button mat-mini-fab color="basic" class="close_button" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="wrapper">
+    <ng-container *ngIf="!changePassword">
+      <form [formGroup]="profileForm" class="profile_form">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" placeholder="Enter your name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="Enter your email">
+
+        </mat-form-field>
+
+        <mat-form-field *ngIf="showPassword">
+          <mat-label>Current Password</mat-label>
+          <input matInput formControlName="currentPassword" placeholder="Enter your current password" type="password">
+
+          <mat-error *ngIf="profileForm.get('currentPassword')?.hasError('currentPassword')">
+            <span>For change email you have to enter curent password!!!</span>
+          </mat-error>
+        </mat-form-field>
+
+      </form>
+
+      <button mat-raised-button color="primary" class="save_button"  (click)="onSubmitProfileForm()">Save</button>
+      <button mat-stroked-button color="based" (click)="changePassword = !changePassword">Change Password</button>
+    </ng-container>
+
+
+    <ng-container *ngIf="changePassword">
+      <form [formGroup]="passwordForm" class="password_form">
+        <mat-form-field>
+          <mat-label>Current Password</mat-label>
+          <input matInput formControlName="currentPassword" placeholder="Enter your Current Password" type="password">
+          <mat-error>
+            <span *ngIf="passwordForm.controls['currentPassword'].hasError('required')">Email is required</span>
+          </mat-error>
+        </mat-form-field>
+
+        <div class="passwords_row">
+          <mat-form-field>
+            <mat-label>New Password</mat-label>
+            <input matInput formControlName="newPassword" placeholder="Enter your New Password" type="password">
+            <mat-error >
+              <span *ngIf="passwordForm.controls['newPassword'].hasError('required')">Email is required</span>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Repeat Password</mat-label>
+            <input matInput formControlName="repeatPassword" placeholder="Enter your Repeat Password" type="password">
+             <mat-error >
+              <span >For change email you have to enter curent password</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      </form>
+
+      <button mat-raised-button color="primary" class="save_button" (click)="onSubmitPasswordForm()">Save</button>
+      <button mat-stroked-button color="based" (click)="changePassword = !changePassword">Back</button>
+
+    </ng-container>
+  </div>
+
+</div>
