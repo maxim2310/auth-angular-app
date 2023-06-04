@@ -8,10 +8,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, throwError } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -27,7 +28,8 @@ export class ProfileModalComponent implements OnInit {
     private authServis: AuthService,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private navService: NavigationService
+    private navService: NavigationService,
+    private mat: SnackBarService
   ) {}
   public profileForm!: FormGroup;
   public showPassword = false;
@@ -36,6 +38,7 @@ export class ProfileModalComponent implements OnInit {
   public changePassword = false;
 
   public user$ = new BehaviorSubject<User | null>(null);
+  public loading$ = new BehaviorSubject(false);
 
   ngOnInit() {
     this.authServis.user$.subscribe((user) => {
@@ -51,13 +54,14 @@ export class ProfileModalComponent implements OnInit {
       { validators: this.emailRequirePassword() }
     );
 
-    this.passwordForm = this.formBuilder.group(
-      {
-        currentPassword: ['', Validators.required],
-        newPassword: ['', Validators.required],
-        repeatPassword: ['', [Validators.required, this.passwordMatchValidator()]],
-      }
-    );
+    this.passwordForm = this.formBuilder.group({
+      currentPassword: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      repeatPassword: [
+        '',
+        [Validators.required, this.passwordMatchValidator()],
+      ],
+    });
 
     this.profileForm.valueChanges.subscribe((v) => {
       if (v.email !== this.user$.getValue()?.email) {
@@ -65,8 +69,6 @@ export class ProfileModalComponent implements OnInit {
       } else {
         this.showPassword = false;
       }
-
-      console.log(this.profileForm);
     });
   }
 
@@ -98,7 +100,6 @@ export class ProfileModalComponent implements OnInit {
 
   passwordMatchValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-
       const newPassword = this.passwordForm?.get('newPassword')?.value;
       const repeatPassword = control.value;
 
@@ -111,32 +112,73 @@ export class ProfileModalComponent implements OnInit {
   }
 
   markFormGroupAsTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach(control => {
+    Object.values(formGroup.controls).forEach((control) => {
       control.markAsTouched();
-
     });
   }
 
   onSubmitProfileForm() {
-    this.markFormGroupAsTouched(this.profileForm)
+    this.markFormGroupAsTouched(this.profileForm);
     if (this.profileForm.valid) {
-      console.log(this.profileForm.value);
-      const userId = this.user$.getValue()?.id || ''
+      this.loading$.next(true);
+      const userId = this.user$.getValue()?.id || '';
 
-      this.userService.updateUser(userId, this.profileForm.value).subscribe(user => {
-        if (this.user$.getValue()?.email !== user.email) {
-          this.authServis.logout();
-          this.navService.activate();
-        }
-        this.authServis.updateUserData(user);
-      })
+      this.userService
+        .updateUser(userId, {
+          ...this.passwordForm.value,
+          ...this.profileForm.value,
+        })
+        .pipe(
+          catchError((error) =>
+            throwError(() => {
+              this.mat.showMessage(error.error.message, 'close');
+            })
+          )
+        )
+        .subscribe((user) => {
+          if (this.user$.getValue()?.email !== user.email) {
+            this.dialogRef.close();
+            this.authServis.logout();
+            this.navService.activate();
+
+            return;
+          }
+
+          this.mat.showMessage('Name was changed successfully!', 'OK', true);
+          this.authServis.updateUserData(user);
+        });
+        this.loading$.next(false);
     }
   }
   onSubmitPasswordForm() {
-    this.markFormGroupAsTouched(this.passwordForm)
+    this.markFormGroupAsTouched(this.passwordForm);
+    const userId = this.user$.getValue()?.id || '';
 
     if (this.passwordForm.valid) {
       console.log(this.passwordForm.value);
+      this.loading$.next(true);
+
+      this.userService
+        .updateUser(userId, {
+          ...this.profileForm.value,
+          ...this.passwordForm.value,
+        })
+        .pipe(
+          catchError((error) =>
+            throwError(() => {
+              this.mat.showMessage(error.error.message, 'close');
+            })
+          )
+        )
+        .subscribe(() => {
+          this.mat.showMessage(
+            'Password was changed successfully!',
+            'OK',
+            true
+          );
+        });
     }
+    this.loading$.next(false);
+
   }
 }

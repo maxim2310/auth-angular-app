@@ -42,3 +42,31 @@ p {
 .profile_modal {
   width: 400px;
 }
+
+.success {
+  --mdc-snackbar-container-color: rgb(6, 171, 6);
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+.error {
+  --mdc-snackbar-container-color: red;
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+
+.hidden-tab-header {
+  height: 100%;
+  mat-tab-header {
+    display: none;
+  }
+  .mat-mdc-tab-body-wrapper {
+    height: 100%;
+
+    .tab_content {
+      height: 98.5%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+}

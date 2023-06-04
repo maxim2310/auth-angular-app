@@ -32,7 +32,10 @@
 
       </form>
 
-      <button mat-raised-button color="primary" class="save_button"  (click)="onSubmitProfileForm()">Save</button>
+      <button mat-raised-button color="primary" class="save_button" [disabled]="loading$ | async" (click)="onSubmitProfileForm()">
+        <ng-container *ngIf="(loading$ | async) === false">Save</ng-container>
+        <mat-spinner *ngIf="loading$ | async" diameter="20"></mat-spinner>
+      </button>
       <button mat-stroked-button color="based" (click)="changePassword = !changePassword">Change Password</button>
     </ng-container>
 
@@ -67,7 +70,10 @@
 
       </form>
 
-      <button mat-raised-button color="primary" class="save_button" (click)="onSubmitPasswordForm()">Save</button>
+      <button mat-raised-button color="primary" class="save_button" [disabled]="loading$ | async" (click)="onSubmitPasswordForm()">
+        <ng-container *ngIf="(loading$ | async) === false">Save</ng-container>
+        <mat-spinner *ngIf="loading$ | async" diameter="20"></mat-spinner>
+      </button>
       <button mat-stroked-button color="based" (click)="changePassword = !changePassword">Back</button>
 
     </ng-container>

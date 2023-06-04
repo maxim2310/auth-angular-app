@@ -76,6 +76,18 @@ export class AuthService {
       );
   }
 
+  restorePasswordEmailPart(email: string) {
+    return this.http.post(`${environment.BASE_URL}/restore-password-email-part`, { email })
+  }
+
+  checkRestoreCode(restoreCode: string) {
+    return this.http.post(`${environment.BASE_URL}/check-restore-code`, { restoreCode })
+  }
+
+  changePassword(email: string, password: string) {
+    return this.http.post(`${environment.BASE_URL}/change-password`, {email, password})
+  }
+
   updateUserData(user: User) {
     this.user.next(user);
   }
