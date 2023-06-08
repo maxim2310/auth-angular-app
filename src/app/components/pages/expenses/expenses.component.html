@@ -1,0 +1,73 @@
+<div class="users_wrapper">
+  <div class="header_page">
+    <h1>Expenses</h1>
+    <button mat-raised-button color="primary" (click)="addNewExpenses()">
+      add new
+      <mat-icon aria-label="Example home icon">add_box</mat-icon>
+    </button>
+  </div>
+  <div class="table_wrapper mat-elevation-z8" *ngIf="dataSource.data.length">
+    <mat-table [dataSource]="dataSource" matSort class="table">
+      <ng-container matColumnDef="id" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          ID
+        </mat-header-cell>
+        <mat-cell *matCellDef="let expenses"> {{ expenses.id }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="spentAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          spentAt
+        </mat-header-cell>
+        <mat-cell *matCellDef="let expenses"> {{ expenses.spentAt | date: 'hh:mm dd.MM' }} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          title
+        </mat-header-cell>
+        <mat-cell *matCellDef="let expenses"> {{ expenses.title }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          category
+        </mat-header-cell>
+        <mat-cell *matCellDef="let expenses"> {{ expenses.category }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          amount
+        </mat-header-cell>
+        <mat-cell *matCellDef="let expenses"> {{ expenses.amount }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="icon">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let expenses">
+          <div class="icon_block">
+            <button mat-icon-button color="Basic" (click)="editExpenses(expenses)">
+              <mat-icon aria-label="Example home icon">edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteExpenses(expenses)">
+              <mat-icon aria-label="Example home icon">delete</mat-icon>
+            </button>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 15, 20]"
+      [pageSize]="pageSize"
+      [length]="totalExpenses"
+      (page)="onPageChange($event)"
+    ></mat-paginator>
+  </div>
+</div>

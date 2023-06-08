@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { NavigationService } from './services/navigation.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileModalComponent } from './components/profile-modal/profile-modal.component';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+
 
 
 @Component({
@@ -19,7 +21,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authService.refresh().subscribe({
-      error: () => {console.log('unsuccess refresh')}
+      // error: () => {console.log('unsuccess refresh')}
     })
   }
 

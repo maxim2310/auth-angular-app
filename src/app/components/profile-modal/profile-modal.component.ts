@@ -25,7 +25,7 @@ export class ProfileModalComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<ProfileModalComponent>,
-    private authServis: AuthService,
+    private authService: AuthService,
     private formBuilder: FormBuilder,
     private userService: UserService,
     private navService: NavigationService,
@@ -41,7 +41,7 @@ export class ProfileModalComponent implements OnInit {
   public loading$ = new BehaviorSubject(false);
 
   ngOnInit() {
-    this.authServis.user$.subscribe((user) => {
+    this.authService.user$.subscribe((user) => {
       this.user$.next(user);
     });
 
@@ -138,14 +138,14 @@ export class ProfileModalComponent implements OnInit {
         .subscribe((user) => {
           if (this.user$.getValue()?.email !== user.email) {
             this.dialogRef.close();
-            this.authServis.logout();
+            this.authService.logout();
             this.navService.activate();
 
             return;
           }
 
           this.mat.showMessage('Name was changed successfully!', 'OK', true);
-          this.authServis.updateUserData(user);
+          this.authService.updateUserData(user);
         });
         this.loading$.next(false);
     }
@@ -155,7 +155,6 @@ export class ProfileModalComponent implements OnInit {
     const userId = this.user$.getValue()?.id || '';
 
     if (this.passwordForm.valid) {
-      console.log(this.passwordForm.value);
       this.loading$.next(true);
 
       this.userService

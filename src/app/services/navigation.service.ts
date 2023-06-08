@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 const NAVURLS = {
-  home: () => '/',
-  users: () => '/users',
+  expenses: () => '/',
   login: () => '/auth/login',
   registration: () => '/auth/registration',
   activate: () => '/auth/activate'
@@ -17,11 +16,8 @@ export class NavigationService {
 
   constructor(private router: Router) { }
 
-  home() {
-    this.router.navigateByUrl(NAVURLS.home());
-  }
-  users() {
-    this.router.navigateByUrl(NAVURLS.users());
+  expenses() {
+    this.router.navigateByUrl(NAVURLS.expenses());
   }
   login() {
     this.router.navigateByUrl(NAVURLS.login());

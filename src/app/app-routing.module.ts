@@ -4,16 +4,12 @@ import { AuthLayoutComponent } from './components/auth/auth-layout/auth-layout.c
 import { HomeComponent } from './components/pages/home/home.component';
 import { UsersComponent } from './components/pages/users/users.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ExpensesComponent } from './components/pages/expenses/expenses.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    pathMatch: 'full',
-  },
-  {
-    path: 'users',
-    component: UsersComponent,
+    component: ExpensesComponent,
     canActivate: [AuthGuard]
   },
   {

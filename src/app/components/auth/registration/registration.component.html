@@ -23,6 +23,12 @@
       <input formControlName="password" matInput type="password" placeholder="Enter your password">
       <mat-error *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">Password must be at least 6 characters.</mat-error>
     </mat-form-field>
-    <button [disabled]="loginForm.invalid" mat-raised-button color="primary"  type="submit" >Submit</button>
+    <div class="button_block">
+      <button [disabled]="loginForm.invalid" mat-raised-button color="primary"  type="submit" >Submit</button>
+      <div class="google_button_wrapper">
+        <asl-google-signin-button type='standard' size='medium' text="signup_with"></asl-google-signin-button>
+
+      </div>
+    </div>
   </form>
 </mat-card-content>

@@ -14,5 +14,10 @@ mat-form-field:last-of-type {
 }
 
 button {
-  margin-top: 16px;
+  margin-right: 20px;
+}
+
+.button_block {
+  display: flex;
+  align-items: center;
 }

@@ -17,6 +17,10 @@ import { EmailActivationComponent } from '../email-activation/email-activation.c
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ForgotPasswordModalComponent } from '../forgot-password-modal/forgot-password-modal.component';
+import { SocialLoginModule, SocialAuthServiceConfig, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider
+} from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,11 @@ import { ForgotPasswordModalComponent } from '../forgot-password-modal/forgot-pa
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatTabsModule,
+    SocialLoginModule,
+    GoogleSigninButtonModule
   ],
+  providers: [
+
+  ]
 })
 export class AuthLayoutModule {}

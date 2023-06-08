@@ -1,9 +1,12 @@
 <mat-toolbar color="primary" class="toolbar">
-  <button mat-icon-button routerLink="/">
+  <!-- <button mat-icon-button routerLink="/">
     <mat-icon aria-label="home" >home</mat-icon>
   </button>
   <button mat-button routerLink="/users">
     users
+  </button> -->
+  <button mat-button routerLink="/">
+    expenses
   </button>
   <span class="spacer"></span>
   <ng-container *ngIf="(isLogin$ | async) === false">

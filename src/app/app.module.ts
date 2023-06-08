@@ -19,15 +19,22 @@ import { ResponseInterceptor } from './interceptors/onResponse';
 import { ProfileModalComponent } from './components/profile-modal/profile-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ExpensesComponent } from './components/pages/expenses/expenses.component';
+import { ExpensesModalFormComponent } from './components/expenses-modal-form/expenses-modal-form.component';
+import {MatSelectModule} from '@angular/material/select';
+import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     UsersComponent,
     ProfileModalComponent,
+    ExpensesComponent,
+    ExpensesModalFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +52,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule
   ],
   providers: [
     {
@@ -58,6 +66,24 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
       useClass: ResponseInterceptor,
       multi: true,
     },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '903934111711-9luvdq0j1c9q85momgf9k8c3dmbfn3k4.apps.googleusercontent.com'
+            ),
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
+        },
+      } as SocialAuthServiceConfig,
+    },
+
   ],
   bootstrap: [AppComponent],
 })

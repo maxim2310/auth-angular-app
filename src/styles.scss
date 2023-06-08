@@ -43,6 +43,11 @@ p {
   width: 400px;
 }
 
+.expenses_modal {
+  max-width: 400px !important;
+  height: 480px;
+}
+
 .success {
   --mdc-snackbar-container-color: rgb(6, 171, 6);
   --mdc-snackbar-supporting-text-color: white;
@@ -51,6 +56,10 @@ p {
 .error {
   --mdc-snackbar-container-color: red;
   --mdc-snackbar-supporting-text-color: white;
+}
+
+mat-form-field {
+  width: 100%;
 }
 
 
@@ -69,4 +78,33 @@ p {
       justify-content: space-between;
     }
   }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.google_button_wrapper {
+  height: 31px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }

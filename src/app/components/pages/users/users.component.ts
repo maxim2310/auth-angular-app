@@ -50,8 +50,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
     pageSize: number;
     length?: number;
   }) {
-    console.log(event);
-
     this.pageSize = event.pageSize;
   }
 
