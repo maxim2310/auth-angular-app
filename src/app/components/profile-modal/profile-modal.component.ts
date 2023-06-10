@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -7,8 +7,8 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { BehaviorSubject, catchError, throwError } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { NavigationService } from 'src/app/services/navigation.service';
@@ -29,7 +29,8 @@ export class ProfileModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private navService: NavigationService,
-    private mat: SnackBarService
+    private mat: SnackBarService,
+    @Inject(MAT_DIALOG_DATA) public dataModal: {loginWithGoogle: Observable<boolean>}
   ) {}
   public profileForm!: FormGroup;
   public showPassword = false;
@@ -72,9 +73,10 @@ export class ProfileModalComponent implements OnInit {
     });
   }
 
-  static show(dialog: MatDialog) {
+  static show(dialog: MatDialog, data: {loginWithGoogle: Observable<boolean>}) {
     dialog.open(ProfileModalComponent, {
       panelClass: 'profile_modal',
+      data
     });
   }
 

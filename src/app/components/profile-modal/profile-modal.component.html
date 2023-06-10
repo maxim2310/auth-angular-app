@@ -12,18 +12,18 @@
       <form [formGroup]="profileForm" class="profile_form">
         <mat-form-field>
           <mat-label>Name</mat-label>
-          <input matInput formControlName="name" placeholder="Enter your name">
+          <input matInput formControlName="name" [readonly]="dataModal.loginWithGoogle | async" placeholder="Enter your name">
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Email</mat-label>
-          <input matInput formControlName="email" placeholder="Enter your email">
+          <input matInput formControlName="email" placeholder="Enter your email" [readonly]="dataModal.loginWithGoogle | async">
 
         </mat-form-field>
 
         <mat-form-field *ngIf="showPassword">
           <mat-label>Current Password</mat-label>
-          <input matInput formControlName="currentPassword" placeholder="Enter your current password" type="password">
+          <input matInput formControlName="currentPassword" placeholder="Enter your current password" type="password" [readonly]="dataModal.loginWithGoogle | async">
 
           <mat-error *ngIf="profileForm.get('currentPassword')?.hasError('currentPassword')">
             <span>For change email you have to enter curent password!!!</span>
@@ -32,11 +32,11 @@
 
       </form>
 
-      <button mat-raised-button color="primary" class="save_button" [disabled]="loading$ | async" (click)="onSubmitProfileForm()">
+      <button mat-raised-button  color="primary" class="save_button" [disabled]="loading$ | async" (click)="onSubmitProfileForm()">
         <ng-container *ngIf="(loading$ | async) === false">Save</ng-container>
         <mat-spinner *ngIf="loading$ | async" diameter="20"></mat-spinner>
       </button>
-      <button mat-stroked-button color="based" (click)="changePassword = !changePassword">Change Password</button>
+      <button *ngIf="!dataModal.loginWithGoogle" mat-stroked-button color="based" (click)="changePassword = !changePassword">Change Password</button>
     </ng-container>
 
 

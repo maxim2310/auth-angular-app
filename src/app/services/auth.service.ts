@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/User';
 import {
+  BehaviorSubject,
   Observable,
   ReplaySubject,
   catchError,
@@ -21,6 +22,7 @@ export class AuthService {
   public user$ = this.user.asObservable();
 
   public isLoggedIn$ = this.user$.pipe(map((user) => user !== null));
+  public loginWithGoogle$ = this.user.pipe(map(user => !!user?.withGoogle));
 
   constructor(
     private http: HttpClient,
@@ -66,6 +68,7 @@ export class AuthService {
         tap(({ user, accessToken }) => {
           this.tokenService.saveToken(accessToken);
           this.user.next(user);
+
         })
       );
   }

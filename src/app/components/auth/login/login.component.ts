@@ -41,7 +41,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.destroy$))
     .subscribe((user) => {
       if (user && user?.id) {
-        this.auth.login({...user, password: user.id}).subscribe(() => this.nav.expenses());
+        this.auth.login({...user, password: user.id}).subscribe(() => {
+          this.nav.expenses();
+        });
       }
     })
   }

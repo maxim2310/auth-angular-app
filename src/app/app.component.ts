@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authService.refresh().subscribe({
-      // error: () => {console.log('unsuccess refresh')}
+      error: () => {console.log()}
     })
   }
 
@@ -30,6 +30,6 @@ export class AppComponent implements OnInit {
   }
 
   openUserProfileModal() {
-    ProfileModalComponent.show(this.dialog)
+    ProfileModalComponent.show(this.dialog, {loginWithGoogle: this.authService.loginWithGoogle$})
   }
 }
