@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "baseHref": "/auth-angular-app/",
             "outputPath": "dist/client_login_app",
             "index": "src/index.html",
             "main": "src/main.ts",
