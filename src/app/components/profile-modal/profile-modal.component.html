@@ -36,7 +36,7 @@
         <ng-container *ngIf="(loading$ | async) === false">Save</ng-container>
         <mat-spinner *ngIf="loading$ | async" diameter="20"></mat-spinner>
       </button>
-      <button *ngIf="!dataModal.loginWithGoogle" mat-stroked-button color="based" (click)="changePassword = !changePassword">Change Password</button>
+      <button *ngIf="(dataModal.loginWithGoogle | async) !== true" mat-stroked-button color="based" (click)="changePassword = !changePassword">Change Password</button>
     </ng-container>
 
 
