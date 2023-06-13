@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  BASE_URL: 'http://localhost:5000'
+  BASE_URL: 'https://auth-nodejs-app-maxim2310.onrender.com'
 };
