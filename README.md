@@ -17,14 +17,14 @@ Check out the live demo of the application [DEMO LINK](https://maxim2310.github.
 
 ## Installation
 
-1. Clone the repository:
+1. Clone the repository: 
 2. Navigate to the project directory:
-3. Install dependencies:
+3. Install dependencies: npm install
 
 
 ## Usage
 
-1. Start the development server:
+1. Start the development server: npm start
 2. Open your browser and visit `http://localhost:4200` to access the application.
 
 ## Authentication
@@ -41,8 +41,4 @@ The application includes a user authentication feature. Users can sign up with t
 ## Contributing
 
 Contributions are welcome! If you find any issues or have suggestions for improvement, please feel free to submit a pull request.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
